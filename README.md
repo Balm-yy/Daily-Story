@@ -19,7 +19,7 @@ Le but est de rendre l’apprentissage quotidien **simple, amusant et motivant**
 ## 🛠️ Stack technique (en cours)
 
 - **Frontend** : HTML, CSS, JavaScript
-- **Backend** : à définir (Node.js/Express ou Python/FastAPI)
+- **Backend** : Python/FastAPI
 - **Base de données** : PostgreSQL
 - **Outils DevOps** : Docker, GitHub Actions, Ansible (plus tard)
 
@@ -32,7 +32,7 @@ index.html
 style.css
 app.js
 /backend
-server.js (ou main.py)
+main.py
 ...
 /assets
 images/
@@ -49,7 +49,7 @@ README.md
    ```bash
    git clone https://github.com/tonpseudo/decouverte-app.git
    cd decouverte-app
-#(À compléter selon la stack choisie)
+(À compléter selon la stack choisie)
 
 ## 📝 Statut du projet
 
