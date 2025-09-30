@@ -1,0 +1,14 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Environnement
+node_modules/
+.env
+
+# Python (si tu l'utilises)
+__pycache__/
+*.pyc
+
+# Logs
+*.log
