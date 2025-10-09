@@ -99,6 +99,7 @@ body {
     color: var(--text-primary);
 }
 
+
 /* ===== MAIN CONTAINER INPUT ===== */
 #main_content {
     /*border: 1px solid red;*/
@@ -188,7 +189,7 @@ body {
     border-color: var(--accent-pink);
 }
 
-#main_container_input {    
+#subject {    
     background: var(--secondary-dark);
     border: none;
     border-top-left-radius: 12px;         
@@ -203,11 +204,11 @@ body {
     width: 100%;
 }
 
-#main_container_input:focus {  
+#subject:focus {  
     outline: none;
 }
 
-#main_container_input::placeholder {
+#subject::placeholder {
     color: var(--text-muted);
     font-style: italic;
 }
@@ -264,6 +265,19 @@ textarea:focus {
     font-style: italic;
 }
 
+
+/* ==== RESULT CONTAINER === */
+#result_container {
+    flex: 0.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid blue;
+    margin: 6rem 1rem;
+    background: var(--gradient-primary);
+    box-shadow: 0 20px 60px var(--shadow-color);
+    color: var(--text-primary)
+}
 
 
 
