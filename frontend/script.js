@@ -1,27 +1,36 @@
-const btn = document.getElementById("input_btn");
-const input = document.getElementById("subject");
-const output = document.getElementById("result");
+async function sendSubject() {
+  const subject = document.getElementById("subject").value.trim();
+  const resultBox = document.getElementById("result")
 
-btn.addEventListener("click", async () => {
-    const subject = input.value.trim();   /*What's trim() -> remove useless spaces (before / after)*/
+  if (!subject) {
+    resultBox.innerHTML = "<p>⚠️ Merci d'entrer un sujet avant de continuer.</p>";
+    return;
+  }
 
-    if (!subject) {                 /* If there is no subject */
-        output.textContent = "Pleaser enter a subject."
-        return;
+  // Message de chargement - A animer later 
+  resultBox.innerHTML = "<p>⏳ Génération en cours...</p>";
+
+  try {
+    const response = await fetch("http://localhost:3000/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify({ subject }),
+    });
+
+    const data = await response.json();
+
+    if (data.text) {
+      resultBox.innerHTML = `<p>${data.text}</p>`;
+    } else {
+      resultBox.innerHTML = "<p>❌ Aucune réponse reçue du serveur.</p>"
     }
 
-    try {
-        const response = await fetch("http://localhost:3000/generate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},   /* ??? */
-            body: JSON.stringify({ subject }),
-        });
-
-        const data = await response.json();
-        output.textContent = data.text;
-    } catch (error) {
-        output.textContent = "Error with the server communication";
-        console.error(error)
+  } catch (error) {
+    console.error("Erreur frontend :", error);
+    resultBox.innerHTML = "<p>⚠️ Erreur de connexion au serveur.</p>"
     }
 
-});
+  }
+
+
+

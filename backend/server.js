@@ -1,23 +1,85 @@
 const express = require("express");
 const cors = require("cors"); //pour autoriser els requêtes du frontend
-const app = express();
+//const dotenv = require("dotenv");
+//const openAI = require("openai");
+//dotenv.config();
 
+const app = express();
 app.use(cors()) ; // autorise les requêtes entre domaines
 app.use(express.json());
 
-app.post("/generate", (req, res) => {
-  const { subject } = req.body;
-  const text = 'Voici une note pré-fabriquer sur le sujet "${subject}". Ce texte est généré automatiqueemnt côté serveur pour tester la communication.'
-  res.json({ text });
-});
 
+// Configuration client OpenAI
+/*const client = new openAI({
+  apiKey : process.env.HUGGINGFACE_API_KEY,
+});*/
+
+// Test Simple
 app.get("/", (req, res) => {
-  res.send("Bienvenue sur le serveur !");
+  res.send("✅ Backend avec OpenAI est en ligne !");
 });
-
 
 app.get("/hello", (req, res) => {
   res.send("Hello World!");
 });
 
+
+// Endpoint Hugging Face
+/*const HF_ENDPOINT = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct";
+const HF_API_KEY = process.env.HUGGINGFACE_API_KEY;
+*/
+
+// Route principal pour générer le contenu
+app.post("/generate", async (req, res) => {
+  const { subject } = req.body;
+
+  if (!subject) {
+    return res.status(400).json({ error: "Aucun sujet fourni"});
+  }
+
+  try {
+    // Requête POST vers Hugging Face
+    const response = await fetch("http://localhost:11434/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model:"mistral",
+        prompt: `Rédige un texte informatif, pédagogique agréable à lire sur le sujet suivant : ${ subject }. Termine avec une annecdote amusante et une question ouverte.`,
+      }),
+    });
+
+    /*
+    const data = await response.json();
+    res.json({ text: data.response });
+*/
+    //Lire le flux du texte brut
+    const raw = await response.text();
+
+    //Ollama envoie plusieurs ligne : On les découpe
+    const lines = raw.trim().split("\n");
+
+   // On reconstitue le texxte dans une variable
+   let fullText ="";
+
+   for (const line of lines) {
+    try {
+      const parsed = JSON.parse(line);
+      if (parsed.response) {
+        fullText += parsed.response; //C'est ici qu'on ajoute chaque partie du texte
+      }
+    } catch (err) {
+      console.log("⚠️ Ligne ignorée (JSON non valide) :", line)
+    }
+   }
+
+    res.json({ text: fullText || "Aucune réponse générée." });
+
+  } catch (error) {
+    console.error("❌ Erreur Ollama :", error);
+    res.status(500).json({ error: "Erreur lors de la génération du texte."});
+  }
+});
+
+// Démarrer le serveur
 app.listen(3000, () => console.log("✅ Backend running on port 3000"));
+//console.log("🔑 Clé Hugging Face détectée :", process.env.HUGGINGFACE_API_KEY ? "OK" : "Manquante");
