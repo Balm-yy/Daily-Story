@@ -29,9 +29,11 @@ app.get("/hello", (req, res) => {
 const HF_API_KEY = process.env.HUGGINGFACE_API_KEY;
 */
 
+
 // Route principal pour générer le contenu
 app.post("/generate", async (req, res) => {
   const { subject } = req.body;
+  const OLLAMA_URL = process.env.OLLAMA_URL || "http://host.docker.internal:11434/api/generate";
 
   if (!subject) {
     return res.status(400).json({ error: "Aucun sujet fourni"});
@@ -39,7 +41,8 @@ app.post("/generate", async (req, res) => {
 
   try {
     // Requête POST vers Hugging Face
-    const response = await fetch("http://localhost:11434/api/generate", {
+    console.log("📡 Tentative de connexion à :", OLLAMA_URL);
+    const response = await fetch(OLLAMA_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -79,6 +82,8 @@ app.post("/generate", async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la génération du texte."});
   }
 });
+
+
 
 // Démarrer le serveur
 app.listen(3000, () => console.log("✅ Backend running on port 3000"));
