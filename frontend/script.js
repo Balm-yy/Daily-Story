@@ -1,6 +1,15 @@
+const closePopUpBtn = document.getElementById("close");
+const popUpBg = document.getElementById("background_popUp");
+
+closePopUpBtn.addEventListener("click", () => {
+  popUpBg.style.visibility = "hidden";
+  closePopUpBtn.style.visibility = "hidden";
+})
+
 async function sendSubject() {
   const subject = document.getElementById("subject").value.trim();
-  const resultBox = document.getElementById("result")
+  const resultBox = document.getElementById("result");
+  popUpBg.style.visibility = "visible";
 
   if (!subject) {
     resultBox.innerHTML = "<p>⚠️ Merci d'entrer un sujet avant de continuer.</p>";
@@ -21,6 +30,7 @@ async function sendSubject() {
 
     if (data.text) {
       resultBox.innerHTML = `<p>${data.text}</p>`;
+      closePopUpBtn.style.visibility = "visible";
     } else {
       resultBox.innerHTML = "<p>❌ Aucune réponse reçue du serveur.</p>"
     }

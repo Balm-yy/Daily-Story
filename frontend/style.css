@@ -30,14 +30,9 @@ body {
     font-family: 'Inter', -app-system, BlinkMacSystemFont, sans-serif !important;  /*Doesn't seems to be working */
     font-weight: 400;
     line-height: 1.6;
-    /*font-size: 16px;
-    padding: 10px;*/
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    /*justify-content: center;
-    align-items: center;
-    gap: 5dvh;*/
 }
 
 
@@ -62,11 +57,7 @@ body {
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    width: 80%;
-    /*height: 5dvh;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;*/   
+    width: 80%;  
 }
 
 #text_container_daily_story::before {
@@ -86,14 +77,12 @@ body {
 }
 
 #text_daily_story_container {
-    /*border: 1px solid black;*/
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     font-weight: 500;
     text-align: center;
     letter-spacing: 2px;
     text-transform: uppercase;
-    /*width: 70%;*/
     margin: 0;
     position: relative;
     color: var(--text-primary);
@@ -102,7 +91,6 @@ body {
 
 /* ===== MAIN CONTAINER INPUT ===== */
 #main_content {
-    /*border: 1px solid red;*/
     flex: 1;
     display: flex;
     align-items: center;
@@ -112,8 +100,6 @@ body {
 
 
 #main_container_input_section {
-   /* width: 90%;
-    height: 50vh;*/
     width: min(90%, 600px);
     padding: 3rem 2rem;
     background: var(--gradient-primary);
@@ -125,8 +111,6 @@ body {
     gap: 2rem;
     position: relative;
     backdrop-filter: blur(10px);
-    /*align-items: center;
-    justify-content: space-around;*/
 }
 
 #main_container_input_section::before {
@@ -140,10 +124,6 @@ body {
 }
 
 #main_container_question {
-    /*border: 1px solid blue;*/
-    /*height: 60%;
-    display: flex;
-    align-items: center;*/
     text-align: center;
 }
 
@@ -153,8 +133,6 @@ body {
     font-size: clamp(1.5rem, 4vw, 2.2rem);
     font-weight: 500;
     line-height: 1.3;
-   /*text-align: center;
-    width: 95%;*/
     margin: 0;
 }
 
@@ -163,21 +141,12 @@ body {
 #main_container_input_container {
     display: flex;
     flex-direction: column;
-    /*height: 35%;
-    width: 95%;*/
     gap: 1rem;
 }
 
 #input_container {
-    /*border: 1px solid blue;*/
     display: flex;
-    
-    /*flex-direction: column;  /*Under or side to side ? */
-    /*flex-direction: row !important; 
-    width: 100%;
-    height: 100%;*/
     border-radius: 12px;
-    /*overflow: hidden;*/
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-subtle);
     transition: all 0.3s ease;
@@ -212,40 +181,18 @@ body {
     color: var(--text-muted);
     font-style: italic;
 }
-/*
-textarea {
-  width: 100%;
-  height: 100%;
-  padding: 12px;
-  background-color: #333; 
-  border: none;      /* border */
-  /*border-top-left-radius: 8px;         /* rounded corners */
- /* border-bottom-left-radius: 8px;
-  font-size: 16px;
-  color: #f9f9f9; 
- }
 
-textarea:focus {  
-    outline: none;
-}*/
 
 #input_btn {
     background: var(--gradient-accent);
     color: var(--text-primary);
-    /*padding: 0 1.5rem;*/
     border: none;  
-    /*font-size: 1.5rem;*/
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 40px;
     min-height: 90px;
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
-    /*justify-content: center;  
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;*/
 }
 
 #input_btn:hover {
@@ -267,21 +214,55 @@ textarea:focus {
 
 
 /* ==== RESULT CONTAINER === */
-#result_container {
-    flex: 0.3;
+#background_popUp {
+    visibility: hidden;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid blue;
-    margin: 6rem 1rem;
-    background: var(--gradient-primary);
-    box-shadow: 0 20px 60px var(--shadow-color);
-    color: var(--text-primary)
 }
 
 
+#result_container {
+    position: relative;
+    flex: 0.3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gradient-accent);
+    border-radius: 20px;
+    margin: 6rem 1rem;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    width: 70vw;
+    height: 65vh;
+    padding: 2rem;
+}
 
+#result_container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
+}
 
+#close {
+    visibility: hidden;
+    background: var(--gradient-accent);
+    color: var(--text-primary);
+    border: none;  
+    border-radius: 15px;
+    padding: 0.5rem;
+}
 
 /* ===== FOOTER ===== */
 
@@ -295,8 +276,6 @@ textarea:focus {
 }
 
 #librairie_container {
-    /*background-color: red;*/
-    /*width: 50%;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -314,8 +293,6 @@ textarea:focus {
 }
 
 #turtle_container {
-    /*background-color: blue;*/
-    /*width: 50%;*/
     display: flex;
     justify-content: center;
     align-items: center;

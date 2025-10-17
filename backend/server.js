@@ -47,7 +47,7 @@ app.post("/generate", async (req, res) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model:"mistral",
-        prompt: `Rédige un texte informatif, pédagogique agréable à lire sur le sujet suivant : ${ subject }. Termine avec une annecdote amusante et une question ouverte.`,
+        prompt: `Rédige un texte informatif, pédagogique agréable à lire en français, sur le sujet suivant : ${ subject }. Termine avec une annecdote amusante et une question ouverte.`,
       }),
     });
 
@@ -60,8 +60,11 @@ app.post("/generate", async (req, res) => {
 
     //Ollama envoie plusieurs ligne : On les découpe
     const lines = raw.trim().split("\n");
+    
+    //REFORMATAGE DU TEXTE -> Suppression des 3 premières lignes "Ti tre : "
+    lines.splice(0, 3); // a partir de l'index  je supprime 3 éléments
 
-   // On reconstitue le texxte dans une variable
+   // On reconstitue le texte dans une variable
    let fullText ="";
 
    for (const line of lines) {
@@ -74,6 +77,9 @@ app.post("/generate", async (req, res) => {
       console.log("⚠️ Ligne ignorée (JSON non valide) :", line)
     }
    }
+
+   //Ajout d'un retour à la ligne pour le texte voir même un double retour
+   //fullText = fullText.replace(/[:-]/, match => `${match}\n\n`);
 
     res.json({ text: fullText || "Aucune réponse générée." });
 
