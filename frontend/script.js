@@ -29,7 +29,7 @@ async function sendSubject() {
     const data = await response.json();
 
     if (data.text) {
-      resultBox.innerHTML = `<p>${data.text}</p>`;
+      resultBox.innerHTML = `<p id="textAdded">${data.text}</p>`;
       closePopUpBtn.style.visibility = "visible";
     } else {
       resultBox.innerHTML = "<p>❌ Aucune réponse reçue du serveur.</p>"

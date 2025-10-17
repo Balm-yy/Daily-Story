@@ -220,7 +220,7 @@ body {
     width: 100vw;
     height: 100vh;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.9);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -230,22 +230,23 @@ body {
 
 #result_container {
     position: relative;
-    flex: 0.3;
+    flex: 0.6;
+    width: 90vw;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--gradient-accent);
+    border: 1px solid var(--gradient-accent);
     border-radius: 20px;
     margin: 6rem 1rem;
     background: var(--gradient-primary);
     color: var(--text-primary);
-    width: 70vw;
-    height: 65vh;
     padding: 2rem;
+    overflow: hidden;
 }
 
-#result_container::before {
+#result_container::after{
     content: '';
     position: absolute;
     top: 0;
@@ -255,6 +256,24 @@ body {
     background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
 }
 
+#result {
+    position: relative;
+    width: 110%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    padding-bottom: 1rem;
+    align-items: center;
+}
+
+#textAdded {
+    height: auto;
+    width: 95%;
+    align-items: center;
+}
+
+
+
 #close {
     visibility: hidden;
     background: var(--gradient-accent);
@@ -262,6 +281,7 @@ body {
     border: none;  
     border-radius: 15px;
     padding: 0.5rem;
+    margin: 0;
 }
 
 /* ===== FOOTER ===== */
@@ -284,7 +304,7 @@ body {
     border-top-right-radius: 12px;
     height: 80px;
     width: 100px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
 }
 
 #librairie_img {
@@ -301,7 +321,7 @@ body {
     border-top-left-radius: 12px;
     height: 80px;
     width: 100px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
 }
 
 #turtle_img {
@@ -315,9 +335,9 @@ body {
 
 /* ===== RESPONSIVE ===== */
 /* IL Y A UN PROBLEME AVEC LE RESPONSIVE SI JE ZOOM TROP LES INPUT ET BTNS CHANGENT DE 
-SENS ET LEURS BORDURES EN VONT PLUS DUCOUP ...
+SENS ET LEURS BORDURES EN VONT PLUS DUCOUP ...*/
 
-/*
+
 @media (max-width: 768px) {
     #main_daily_story_container {
         padding: 1rem 0.5rem 0;
@@ -332,11 +352,17 @@ SENS ET LEURS BORDURES EN VONT PLUS DUCOUP ...
         width: 95%;
     }
 
-    #footer_container {
-        padding: 1rem 1rem 1.5rem;
+    #result {
+        font-size: 0.7rem;
     }
-}
 
+    #close {
+        font-size: 0.7rem;
+    }
+
+   
+}
+/*
 @media (max-width: 480px) {
     #main_container_input_section {
         padding: 1.5rem 1rem;
