@@ -266,8 +266,34 @@ body {
     display: flex;
     flex-direction: column;
     overflow: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
     padding-bottom: 1rem;
-    align-items: center;
+}
+
+#result::-webkit-scrollbar {
+    display: none;
+}
+
+#result h2 {
+    margin-top: 0;
+    color: var(--accent-pink);
+    font-size: large;
+    font-weight: 700;
+}
+
+#result p {
+    text-align: justify;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: start;
+}
+
+#result h3 {
+    color: var(--accent-pink);
+    margin-bottom: 0.5rem;
+    font-size: medium;
+    font-weight: 600;
 }
 
 .waiting {

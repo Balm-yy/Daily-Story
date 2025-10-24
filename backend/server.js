@@ -47,12 +47,45 @@ app.post("/generate", async (req, res) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model:"mistral",
-        prompt: `Rédige un texte informatif et pédagogique en anglais sur le sujet suivant : "${subject}".
-Le texte doit être accessible à tous les âges : utilise un langage simple et fluide, mais garde les mots techniques importants en les expliquant brièvement (entre parenthèses ou dans la phrase). Le ton doit être bienveillant, engageant et instructif, comme celui d’un vulgarisateur.
-Suis impérativement cette structure :
-Titre : [un titre captivant et clair]
-Texte principal : [500 à 5000 mots]
-Anecdote : [une petite histoire amusante ou surprenante liée au sujet]`,
+        prompt: `You are a helpful educational writer.  
+Write an informative and pedagogical text **in English** about the following topic: **"${subject}"**.  
+
+The text must be clear and accessible for all ages — use simple, fluid language,  
+but keep technical words and explain them briefly in parentheses.  
+Your tone should be kind, engaging, and sound like a science or culture explainer.
+
+---
+
+⚙️ **Mandatory structure (must NEVER change):**
+
+Titre : [A captivating and clear title]  
+Texte principal : [500–5000 words of coherent text, formatted into short paragraphs]  
+Anecdote : [A short, funny, or surprising story linked to the topic]  
+Conclusion : [A concluding reflection with a cultural or practical recommendation]
+
+---
+
+📋 **Formatting rules:**
+- At every line break, prepend the symbol '#' to mark it clearly (like markdown).  
+- If you write a list, use dashes '-' only, and **add '#' at the end of each item**.  
+- Avoid using any other formatting symbols ('*', '_', etc.).  
+- Never change the section names — always keep **"Titre :", "Texte principal :", "Anecdote :", "Conclusion :"** exactly in this order and in French.  
+- Avoid any additional commentary or explanation outside the text structure.  
+
+---
+
+🎯 **Goal:**
+Produce a coherent, engaging, and structured text that can be parsed programmatically by a script.  
+Every section must be present, and the total text must be logically consistent.
+
+Example of expected format:
+
+Titre : The Amazing World of Volcanoes#
+Texte principal : Volcanoes are openings in the Earth's crust...#
+They can erupt violently or gently...#
+Anecdote : Once, in Iceland, a volcano stopped all flights across Europe...#
+Conclusion : Volcanoes remind us of Earth's power and beauty.#
+`,
       }),
     });
 
@@ -71,6 +104,7 @@ Anecdote : [une petite histoire amusante ou surprenante liée au sujet]`,
 
    // On reconstitue le texte dans une variable
    let fullText ="";
+   
 
    for (const line of lines) {
     try {
@@ -85,6 +119,13 @@ Anecdote : [une petite histoire amusante ou surprenante liée au sujet]`,
 
    //Ajout d'un retour à la ligne pour le texte voir même un double retour
    //fullText = fullText.replace(/[:-]/, match => `${match}\n\n`);
+
+   fullText = fullText
+      .replaceAll("#", "\n")
+      .replace(/Titre ?: ?/gi, "<h2>")
+      .replace(/Texte principal ?: ?/gi, "</h2><p>")
+      .replace(/Anecdote ?: ?/gi, "</p><h3>Anecdote :</h3><p>")
+      .replace(/Conclusion ?: ?/gi, "</p><h3>Conclusion :</h3><p>") + "</p>";
 
     res.json({ text: fullText || "Aucune réponse générée." });
 
