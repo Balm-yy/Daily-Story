@@ -1,0 +1,15 @@
+MESSAGE D'ERREUR
+Quand il y a un message d'erreur, cela l'affiche dans le conteneur result.
+Mais il n'y a pas de bouton pour revenir au menu.
+Il faudrait reduire le conteneur quand il y a un message d'erreur et le modifiier visuellement
+Et y ajouter un bouton
+
+CONTENEUR POP UP
+Il faudrait pour tous les conteneur result et tous les conteneurs pop-up,
+donner la possible de le ferme si je clique en dehors de la fentre du pop-up
+Ajouter une tolérance autour du conteneur.
+
+
+MESSAGE GENERATION DU CONTENU 
+Reduire la taille du pop up
+Ajouter une animation

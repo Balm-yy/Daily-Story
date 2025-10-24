@@ -47,7 +47,12 @@ app.post("/generate", async (req, res) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model:"mistral",
-        prompt: `Rédige un texte informatif, pédagogique agréable à lire en français, sur le sujet suivant : ${ subject }. Termine avec une annecdote amusante et une question ouverte.`,
+        prompt: `Rédige un texte informatif et pédagogique en anglais sur le sujet suivant : "${subject}".
+Le texte doit être accessible à tous les âges : utilise un langage simple et fluide, mais garde les mots techniques importants en les expliquant brièvement (entre parenthèses ou dans la phrase). Le ton doit être bienveillant, engageant et instructif, comme celui d’un vulgarisateur.
+Suis impérativement cette structure :
+Titre : [un titre captivant et clair]
+Texte principal : [500 à 5000 mots]
+Anecdote : [une petite histoire amusante ou surprenante liée au sujet]`,
       }),
     });
 
@@ -62,7 +67,7 @@ app.post("/generate", async (req, res) => {
     const lines = raw.trim().split("\n");
     
     //REFORMATAGE DU TEXTE -> Suppression des 3 premières lignes "Ti tre : "
-    lines.splice(0, 3); // a partir de l'index  je supprime 3 éléments
+    //lines.splice(0, 3); // a partir de l'index  je supprime 3 éléments
 
    // On reconstitue le texte dans une variable
    let fullText ="";
