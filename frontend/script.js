@@ -86,6 +86,23 @@ async function sendSubject() {
 
       resultBox.innerHTML = `<p id="textAdded">${data.text}</p>`;
 
+      //Envoi du texte au backend pour l'ajouter à la BDD
+      const saveResponse = await fetch("http://localhost:3000/stories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({
+          subject: subject,
+          content: data.text,
+        }),
+      });
+
+      if (saveResponse.ok) {
+        console.log("✅ Histoire sauvegardée en BDD");
+      } else {
+        console.error("❌ Erreur lors de la sauvegarde de l'histoire en BDD", saveResponse.status);
+      } 
+   
+
       // ✅ on ajoute un seul listener à chaque réponse
       resultBox.onscroll = () => {
         const { scrollTop, scrollHeight, clientHeight } = resultBox;

@@ -1,7 +1,7 @@
 //backend/db.js
 
 const { Pool } = require('pg');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 dotenv.config();
 
 
@@ -9,7 +9,7 @@ dotenv.config();
 const pool = new Pool({
   user: process.env.PG_USER,
   host: process.env.PG_HOST || 'postgres',
-  database: process.env.PG_NAME,
+  database: process.env.PG_DATABASE,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT || 5432,
 });
@@ -30,7 +30,7 @@ const waitForPostgres = async (retries = 10, delay = 3000) => {
 };
 
 waitForPostgres();
-
+/*
 console.log("🧩 Variables BDD chargées :", {
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
@@ -38,8 +38,7 @@ console.log("🧩 Variables BDD chargées :", {
   password: process.env.PG_PASSWORD ? "***" : "❌ MDP manquant",
   port: process.env.PG_PORT,
 });
-
-
+*/
 
 //Test the database connection immediately
 

@@ -1,34 +1,14 @@
 const express = require("express");
 const cors = require("cors"); //pour autoriser els requêtes du frontend
-const db = require("./db");
+const storiesRoutes = require("./routes/stories")
+//const db = require("./db");
 //const dotenv = require("dotenv");
-//const openAI = require("openai");
 //dotenv.config();
 
 const app = express();
 app.use(cors()) ; // autorise les requêtes entre domaines
 app.use(express.json());
 
-
-// Configuration client OpenAI
-/*const client = new openAI({
-  apiKey : process.env.HUGGINGFACE_API_KEY,
-});*/
-
-// Test Simple
-app.get("/", (req, res) => {
-  res.send("✅ Backend avec OpenAI est en ligne !");
-});
-
-app.get("/hello", (req, res) => {
-  res.send("Hello World!");
-});
-
-
-// Endpoint Hugging Face
-/*const HF_ENDPOINT = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct";
-const HF_API_KEY = process.env.HUGGINGFACE_API_KEY;
-*/
 
 
 // Route principal pour générer le contenu
@@ -90,10 +70,6 @@ Conclusion : Volcanoes remind us of Earth's power and beauty.#
       }),
     });
 
-    /*
-    const data = await response.json();
-    res.json({ text: data.response });
-*/
     //Lire le flux du texte brut
     const raw = await response.text();
 
@@ -136,6 +112,8 @@ Conclusion : Volcanoes remind us of Earth's power and beauty.#
   }
 });
 
+
+app.use("/stories", storiesRoutes)
 
 
 // Démarrer le serveur

@@ -1,10 +1,10 @@
-services:             
-  backend:            
-    build: ./backend   
+services:
+  backend:
+    build: ./backend
     ports:
-      - "3000:3000"   
+      - "3000:3000"
     env_file:
-      - ./backend/.env
+      - ./.env
     depends_on:
       - postgres
     environment:
@@ -13,18 +13,21 @@ services:
       - PG_HOST=postgres
       - PG_DATABASE=${PG_DATABASE}
       - PG_PORT=${PG_PORT}
-  
+
   postgres:
     image: postgres:16
+    container_name: daily_stories-postgres-1
     restart: always
+    env_file:
+      - ./.env
     environment:
       - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASSWORD=${PG_PASSWORD}
       - POSTGRES_DB=${PG_DATABASE}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - daily_stories_pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
 volumes:
-  pgdata:
+  daily_stories_pgdata:
