@@ -234,8 +234,10 @@ body {
 #result_container {
     position: relative;
     flex: 0.6;
-    width: 90vw;
-    height: 80vh;
+    width: 100%;
+    height: 120px;
+    max-width: 90vw;
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -296,10 +298,7 @@ body {
     font-weight: 600;
 }
 
-.waiting {
-    height: 50px;
-    width: 50px;
-}
+
 
 /*Animation des 3 points lors du chargement*/
 .loader {

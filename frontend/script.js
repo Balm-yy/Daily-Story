@@ -46,12 +46,13 @@ async function sendSubject() {
   closePopUpBtn.classList.add("hidden");
 
   //Ajouter une animation de chargement
-  resultContainer.classList.add("waiting");
-  resultBox.innerHTML = "<p>⏳ Génération du texte en cours, merci de patienter...</p>";
+  resultContainer.style.background = "#1a1a1a";
+  resultContainer.style.border = "none";
+  //resultBox.innerHTML = "<p>⏳ Génération du texte en cours, merci de patienter...</p>";
   resultBox.innerHTML = `
     <div class="loader" role="status" aria-live="polite">
       <div class="spinner" aria-hidden="true"></div>
-      <div class="loader-text">⏳ Génération du texte en cours, merci de patienter...</div>
+      <div class="loader-text">Génération du texte en cours, merci de patienter...</div>
   `;
 
   if (!subject) {
@@ -80,6 +81,8 @@ async function sendSubject() {
       // on supprime le vieux texte s’il existait
       resultBox.onscroll = null;
       resultContainer.classList.remove("waiting");
+      resultContainer.style.background = "var(--gradient-primary)";
+      resultContainer.style.border = "1px solid var(--gradient-accent)";
 
       resultBox.innerHTML = `<p id="textAdded">${data.text}</p>`;
 

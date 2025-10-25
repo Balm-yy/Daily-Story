@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors"); //pour autoriser els requêtes du frontend
+const db = require("./db");
 //const dotenv = require("dotenv");
 //const openAI = require("openai");
 //dotenv.config();
