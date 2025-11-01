@@ -8,7 +8,206 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <p>test</p>
+
+    <header>
+        <h1 id="page_name">LIBRARY</h1>
+        <img id="bookshelf" src="./img/bookshelf.png">
+    </header>
     
+
+    <div id="main_container">
+
+         <div id="month_stories" class="actual_month">  
+            <div id="months">
+                <div id="month">
+                    <p id="month_title">OCTOBER</p>
+                </div>
+                <div id="viewAll_container">
+                    <p id="viewAll_text">View all</p>
+                    <div id="viewAll_btn">-></div>
+                </div>
+            </div> 
+            <div id="books">
+                <div id="book_container" onclick="displayStory()">
+                    <div id="book" onclick="displayStory()">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title" onclick="displayStory()">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="month_stories" class="actual_month">  
+            <div id="months">
+                <div id="month">
+                    <p id="month_title">OCTOBER</p>
+                </div>
+                <div id="viewAll_container">
+                    <p id="viewAll_text">View all</p>
+                    <div id="viewAll_btn">-></div>
+                </div>
+            </div> 
+            <div id="books">
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+         <div id="month_stories" class="actual_month">  
+            <div id="months">
+                <div id="month">
+                    <p id="month_title">OCTOBER</p>
+                </div>
+                <div id="viewAll_container">
+                    <p id="viewAll_text">View all</p>
+                    <div id="viewAll_btn">-></div>
+                </div>
+            </div> 
+            <div id="books">
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+         <div id="month_stories" class="actual_month">  
+            <div id="months">
+                <div id="month">
+                    <p id="month_title">OCTOBER</p>
+                </div>
+                <div id="viewAll_container">
+                    <p id="viewAll_text">View all</p>
+                    <div id="viewAll_btn">-></div>
+                </div>
+            </div> 
+            <div id="books">
+                <div id="book_container">
+                    <div id="book">
+                        <div id="couverture">
+                            <div id="tranche"></div>
+                        </div>
+                        <img id="book.jpg">
+                    </div>
+                    <div id="titles">
+                        <div id="book-title">
+                            <p id="title">Le langage JavaScript depuis 1900.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        
+          <div id="displayed_story" class="hidden">
+            <div id="story_container" class="">
+                <p id="story"></p>
+                <button class="hidden" id="close">Finish reading</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="footer_container"></div>
+
+
+    <script src="bibliotheque.js"></script>
 </body>
 </html>
