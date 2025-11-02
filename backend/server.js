@@ -11,6 +11,8 @@ app.use(express.json());
 
 
 
+
+
 // Route principal pour générer le contenu
 app.post("/generate", async (req, res) => {
   const { subject } = req.body;

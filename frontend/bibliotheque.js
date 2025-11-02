@@ -3,6 +3,8 @@ const storycontainer = document.getElementById("story_container");
 const content = document.getElementById("story");
 const closeStoryBtn = document.getElementById("close");
 
+
+
 // Variable pour stocker l'AbortController de la requête en cours (est en cours de fetch ou pas)
 let currentAbortController = null;
 
@@ -180,6 +182,9 @@ async function organizeLibrary() {
   
 
 }
+
+document.addEventListener("DOMContentLoaded", fetchStory);
+
 
 
 async function displayStory() { 
