@@ -6,6 +6,12 @@ const closeStoryBtn = document.getElementById("close");
 // Variable pour stocker l'AbortController de la requête en cours (est en cours de fetch ou pas)
 let currentAbortController = null;
 
+//Stocker les histoires récupérées
+let stories = [];
+let actualMonth = "";
+let comparedMonth = "";
+
+// Écouteur d'événement pour le bouton de fermeture de l'histoire
 closeStoryBtn.addEventListener("click", () => {
     // annuler une requête en cours si nécessaire (empêche 2 fetch simultanés)
   if (currentAbortController) {
@@ -35,8 +41,149 @@ function resetPrevious() {
   document.body.classList.remove("no-scroll");
 }
 
+async function fetchStory() { 
+    // Créer un nouvel AbortController pour cette requête
+    const controller = new AbortController();
+    currentAbortController = controller;
+    
+    try {
+      const response = await fetch("http://localhost:3000/getStory");
+      if (response.ok) {
+        console.log("✅ Histoire récupérée avec succès");
+        stories = await response.json();
+        console.log("📚 Histoires :", stories);
+        console.log("📚 Première histoire :", stories[0].created_at);
+        organizeLibrary()
+        // organizeLibrary(); // Appeler la fonction pour organiser la bibliothèque après avoir récupéré les histoires
+      } else {
+        console.error("❌ Échec de la récupération de l'histoire :", response.statusText);
+      }
+
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.log("⚠️ Requête annulée");
+      } else {
+        console.error("❌ Erreur lors de la récupération des histoires :", error);
+      }
+}
+}
+
+
+function monthNumberToName(story) {
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+  ];
+  const monthIndex = parseInt(story.created_at.slice(5, 7), 10) - 1; // Convertir en index (0-11)
+  comparedMonth = monthNames[monthIndex];
+  //return comparedMonth;
+}
+
+
+async function organizeLibrary() {
+  const mainContainer = document.getElementById("main_container");
+
+  // Vider le conteneur principal avant d'ajouter les histoires
+  mainContainer.innerHTML = "";
+  //stories = []; // Pour test
+  //Verifier si des histoires sont présentes dans stories
+  if (stories.length === 0) {
+    mainContainer.innerHTML = "<p>Aucune histoire disponible.</p> <a href='index.html'><buton>Générer une histoire</button></a>";
+    return;
+  }
+  else if (stories.length === 1) {
+
+    monthNumberToName(stories[0]);
+    actualMonth = comparedMonth;
+    
+      mainContainer.innerHTML += `
+          <div id="${actualMonth}" class="month_stories">  
+            <div class="months">
+                <div class="month">
+                    <p class="month_title">${actualMonth}</p>
+                </div>
+                <div class="viewAll_container">
+                    <p class="viewAll_text">View all</p>
+                    <div class="viewAll_btn">-></div>
+                </div>
+            </div> 
+            <div class="books">
+              <div id="${stories[0].id}" class="book_container" onclick="fetchStory()">
+                <div class="book" onclick="displayStory()">
+                  <div class="titles">
+                <div class="book-title" onclick="displayStory()">
+                  <p class="title">${stories[0].subject}</p>
+              </div>
+            </div>
+          </div>`;
+
+    } else if (stories.length > 1) {
+      monthNumberToName(stories[0]);
+      actualMonth = comparedMonth;
+      mainContainer.innerHTML += `
+          <div id="${actualMonth}" class="month_stories">  
+            <div class="months">
+                <div class="month">
+                    <p class="month_title">${actualMonth}</p>
+                </div>
+                <div class="viewAll_container">
+                    <p class="viewAll_text">View all</p>
+                    <div class="viewAll_btn">-></div>
+                </div>
+            </div> 
+            <div class="books">
+              <div id="${stories[0].id}" class="book_container" onclick="fetchStory()">
+                <div class="book" onclick="displayStory()">
+                  <div class="titles">
+                <div class="book-title" onclick="displayStory()">
+                  <p class="title">${stories[0].subject}</p>
+              </div>
+            </div>
+          </div>`;
+          for (let i = 1; i < stories.length; i++) {
+            monthNumberToName(stories[i]);
+            if (comparedMonth === actualMonth) {
+              // Ajouter au même conteneur month_stories
+              const booksContainer = document.querySelector(`#${actualMonth} .books`);
+              booksContainer.innerHTML += `
+                <div id="${stories[i].id}" class="book_container" onclick="fetchStory()">
+                  <div class="book" onclick="displayStory()">
+                    <div class="titles">
+                  <div class="book-title" onclick="displayStory()">
+                    <p class="title">${stories[i].subject}</p>
+                </div>`;
+          } else if (comparedMonth !== actualMonth) {
+              // Créer un nouveau conteneur month_stories
+              actualMonth = comparedMonth;
+              mainContainer.innerHTML += `
+          <div id="${actualMonth}" class="month_stories">  
+            <div class="months">
+                <div class="month">
+                    <p class="month_title">${actualMonth}</p>
+                </div>
+                <div class="viewAll_container">
+                    <p class="viewAll_text">View all</p>
+                    <div class="viewAll_btn">-></div>
+                </div>
+            </div> 
+            <div class="books">
+              <div id="${stories[i].id}" class="book_container" onclick="fetchStory()">
+                  <div class="book" onclick="displayStory()">
+                    <div class="titles">
+                  <div class="book-title" onclick="displayStory()">
+                    <p class="title">${stories[i].subject}</p>
+                </div>
+            </div>
+          </div>`;
+          }
+    }
+  };
+  
+
+}
+
 
 async function displayStory() { 
+
     // Réinitialiser le contenu précédent
     //resetPrevious();
     popUpBg.classList.remove("hidden");
@@ -54,5 +201,7 @@ async function displayStory() {
       <div class="spinner" aria-hidden="true"></div>
       <div class="loader-text">⏳ Histoire en cours de chargement</div>
   `;
+
+
 
 }

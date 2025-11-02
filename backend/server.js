@@ -115,6 +115,8 @@ Conclusion : Volcanoes remind us of Earth's power and beauty.#
 
 app.use("/stories", storiesRoutes)
 
+app.use("/getStory", storiesRoutes);
+
 
 // Démarrer le serveur
 app.listen(3000, () => console.log("✅ Backend running on port 3000"));
