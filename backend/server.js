@@ -119,6 +119,8 @@ app.use("/stories", storiesRoutes)
 
 app.use("/getStory", storiesRoutes);
 
+app.use("/displayStory", storiesRoutes);
+
 
 // Démarrer le serveur
 app.listen(3000, () => console.log("✅ Backend running on port 3000"));

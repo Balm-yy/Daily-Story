@@ -110,7 +110,7 @@ async function organizeLibrary() {
             </div> 
             <div class="books">
               <div id="${stories[0].id}" class="book_container" onclick="fetchStory()">
-                <div class="book" onclick="displayStory()">
+                <div id="${stories[0].id}" class="book" onclick="displayStory(${stories[0].id})">
                   <div class="titles">
                 <div class="book-title" onclick="displayStory()">
                   <p class="title">${stories[0].subject}</p>
@@ -134,7 +134,7 @@ async function organizeLibrary() {
             </div> 
             <div class="books">
               <div id="${stories[0].id}" class="book_container" onclick="fetchStory()">
-                <div class="book" onclick="displayStory()">
+                <div id="${stories[0].id}" class="book" onclick="displayStory(${stories[0].id})">
                   <div class="titles">
                 <div class="book-title" onclick="displayStory()">
                   <p class="title">${stories[0].subject}</p>
@@ -148,7 +148,7 @@ async function organizeLibrary() {
               const booksContainer = document.querySelector(`#${actualMonth} .books`);
               booksContainer.innerHTML += `
                 <div id="${stories[i].id}" class="book_container" onclick="fetchStory()">
-                  <div class="book" onclick="displayStory()">
+                  <div id="${stories[i].id}" class="book" onclick="displayStory(${stories[i].id})">
                     <div class="titles">
                   <div class="book-title" onclick="displayStory()">
                     <p class="title">${stories[i].subject}</p>
@@ -169,7 +169,7 @@ async function organizeLibrary() {
             </div> 
             <div class="books">
               <div id="${stories[i].id}" class="book_container" onclick="fetchStory()">
-                  <div class="book" onclick="displayStory()">
+                  <div id="${stories[i].id}" class="book" onclick="displayStory(${stories[i].id})">
                     <div class="titles">
                   <div class="book-title" onclick="displayStory()">
                     <p class="title">${stories[i].subject}</p>
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", fetchStory);
 
 
 
-async function displayStory() { 
+async function displayStory(id) { 
 
     // Réinitialiser le contenu précédent
     //resetPrevious();
@@ -207,6 +207,25 @@ async function displayStory() {
       <div class="loader-text">⏳ Histoire en cours de chargement</div>
   `;
 
+ try {
+    const response = await fetch("http://localhost:3000/displayStory/" + id);
 
+    const raw = await response.text();
+    console.log("Réponse brute :", raw);
+    const data = JSON.parse(raw);
+
+    //const data = await response.json();
+    console.log("✅ Histoire chargée avec succès");
+
+    content.innerHTML = `<p>${data.content}</p>`;
+    closeStoryBtn.classList.remove("hidden");
+
+
+
+
+ } catch (error) {
+    console.error("❌ Erreur lors du chargement de l'histoire :", error);
+    content.innerHTML = "<p>❌ Erreur lors du chargement de l'histoire.</p>";
+ }
 
 }
